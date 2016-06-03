@@ -19,23 +19,14 @@ if(!err) {
 }
 });
 
-app.get("/", function(req,res){
+app.get("/last100", function(req,res){
 globalResponse=res;
 connection.query('SELECT * from moisture LIMIT 100', function (err,rows,fields) {
 globalResponse.writeHeader(200, {'Content-Type': 'text/html'});  
 if (!err)
 {
 	console.log('The solution is: ',rows);
-	globalResponse.write('The solution is:' + '<br/>');
-	for (var i = 0; i< rows.length; i++)
-	{
-		var row = rows[i];
-		globalResponse.write(row.tdate.toString());
-		globalResponse.write(row.ttime.toString());
-		globalResponse.write(row.moisture.toString());
-
-		globalResponse.write('<br/>');
-	}
+	globalResponse.write(JSON.stringify(rows));
 }
 else
 {
