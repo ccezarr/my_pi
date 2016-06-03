@@ -1,0 +1,23 @@
+{
+  "name": "Moisture.WWW",
+  "version": "0.0.0",
+  "description": "WWW for moisture 01",
+  "main": "wykresik.js",
+  "dependencies": {
+    "chart.js": "^2.1.4",
+    "chartjs-color": "^2.0.0",
+    "chartjs-color-string": "^0.4.0",
+    "color-convert": "^0.5.3",
+    "color-name": "^1.1.1",
+    "moment": "^2.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "hello"
+  },
+  "keywords": [
+    "moisture"
+  ],
+  "author": "ccezarr",
+  "license": "ISC"
+}
