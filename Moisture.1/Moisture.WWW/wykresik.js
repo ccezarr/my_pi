@@ -1,5 +1,5 @@
 var http = require('http'),
-	chart = require('chart.js'),
+//	window = require('chart.js'),
     fs = require('fs');
 
     http.createServer(

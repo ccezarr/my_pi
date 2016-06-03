@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<title>Wykresik</title>
-	<script src="http://www.chartjs.org/assets/Chart.js" type="text/javascript"></script>
-</head>
-
-<body>
-	<h1>Moj pierwszy wykresik</h1>
-
-	<br/>Poczatek <br/>
-
-	<canvas id="buyers" width="400" height="400"></canvas>	
-
-	<br/>Koniec<br/>
-
-	<script>
 var buyerData = {
 			labels: ["One", "Two"],
 			datasets: [
@@ -30,8 +12,3 @@ var buyerData = {
 		//new Chart(buyers).Line();
 		var ctx = new Chart(document.getElementById("buyers").getContext("2d")).Line(buyerData);
 	
-</script>
-
-	
-</body>
-</html>
