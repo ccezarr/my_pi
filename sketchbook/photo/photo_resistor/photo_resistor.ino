@@ -71,7 +71,7 @@ void loop()
       Serial.println(readLightLevel); //Write the value of the photoresistor to the serial monitor.
     #endif
   
-  if (readLightLevel > 700)
+  if (readLightLevel > 750)
   {
     if (whenLightWentHigh <= 0)
     {

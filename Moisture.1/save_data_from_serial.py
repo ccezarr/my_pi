@@ -3,11 +3,15 @@ import traceback
 import time
 import sys
 import datetime  # This is required to include time module.
+import MySQLdb
 from subprocess import call 
 
 print ("App started.")
 
-photofile = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload /home/pi/moisture.txt moisture.txt"   
+photofile = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload /home/pi/moisture.txt moisture.txt"
+
+db = MySQLdb.connect(host="localhost", user="monitor", passwd="password", db="pomiary")
+cur = db.cursor()
 
 while 1:
     try:
@@ -24,17 +28,27 @@ while 1:
             dataToWrite = "{} {} {}".format(localdate, localtime, dataRead)
             
             print (dataToWrite)
+            sqlInsert = "INSERT INTO moisture VALUES(CURRENT_DATE(), NOW()," + dataRead + ")"
+            print (sqlInsert)
+            try:
+                cur.execute(sqlInsert)
+                db.commit()
+            except:
+                print ("Error writing to DB")
+                db.rollback()
+            print ("DB executed")
 
             counter = counter+1
             if counter > 60:
                 counter=1
                 with open("moisture.txt", "a") as myFile:
                     myFile.write(dataToWrite)     
-                call ([photofile], shell=True)
+                #call ([photofile], shell=True)
                 print ("File uploaded")
-
     except:
         e = sys.exc_info()[0]
         print ( "Error: %s" % traceback.format_exc() )
         print ( "Will retry in a sec...")
         time.sleep(10)   
+
+db.close()

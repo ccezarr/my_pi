@@ -7,14 +7,27 @@
 </head>
 
 <body>
-	<h1>Moj pierwszy wykresik</h1>
+	<h3>My Flower's Moisture</h3>
 
-	<br/>Poczatek <br/>
+	
+	<h4>
+		<div id="czas" width="100"></canvas>
+	</h4>
+	<script>
+		var today = new Date;
+		document.getElementById('czas').innerHTML = today.toString();
+	</script>
+	<br/>
 
-	<canvas id="buyers" width="400" height="400"></canvas>	
+	<canvas id="buyers" width="800" height="400"></canvas>	
+	<br/>
+	<img 
+		src="http://192.168.0.26:8000/graph/benjaminek.jpg"
+		style="width:300px"/>
 
-	<br/>Koniec<br/>
-
+	<h6>
+		Cezar is awesome!
+	</h6>
 	<script>
 var buyerData = {
 			labels: {{{labels}}},

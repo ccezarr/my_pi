@@ -11,6 +11,8 @@ var connection = mysql.createConnection ({
 var globalResponse;
 var app = express();
 
+app.use('/graph', express.static('graph'));
+
 connection.connect(function(err){
 if(!err) {
 	console.log ("Database is connected ... nn");
@@ -32,7 +34,7 @@ fs.readFile('wykresik.html', 'utf-8',  function (err, html)
         		response.write(html);
 			console.log(err);
 			console.log ('file loaded.');
-			console.log(html.toString('utf-8'));
+			//console.log(html.toString('utf-8'));
         		response.end();  
 		})
 });
@@ -60,9 +62,9 @@ app.get('/kwiatek', function(req,res){
 				dataString = dataString + '\"' + data[i].moisture.toString() + '\"';
 			}
 			var dataString = dataString + ']';
-			console.log(dataString);	
+			//console.log(dataString);	
 			var labelsString = labelsString + ']';
-			console.log(labelsString);
+			//console.log(labelsString);
 
 			var htmlToSend = html.toString();
 			htmlToSend = htmlToSend
@@ -87,7 +89,7 @@ connection.query('SELECT * from moisture LIMIT 100', function (err,rows,fields) 
 //globalResponse.writeHeader(200, {'Content-Type': 'text/html'});  
 if (!err)
 {
-	console.log('The solution is: ',rows);
+	//console.log('The solution is: ',rows);
 	globalResponse.status(200).json(rows);
 }
 else
