@@ -28,15 +28,6 @@ while 1:
             dataToWrite = "{} {} {}".format(localdate, localtime, dataRead)
             
             print (dataToWrite)
-            sqlInsert = "INSERT INTO moisture VALUES(CURRENT_DATE(), NOW()," + dataRead + ")"
-            print (sqlInsert)
-            try:
-                cur.execute(sqlInsert)
-                db.commit()
-            except:
-                print ("Error writing to DB")
-                db.rollback()
-            print ("DB executed")
 
             counter = counter+1
             if counter > 60:
@@ -45,6 +36,19 @@ while 1:
                     myFile.write(dataToWrite)     
                 #call ([photofile], shell=True)
                 print ("File uploaded")
+
+            if counter > 10:
+                #DATABASE
+                sqlInsert = "INSERT INTO moisture VALUES(CURRENT_DATE(), NOW()," + dataRead + ")"
+                print (sqlInsert)
+                try:
+                    cur.execute(sqlInsert)
+                    db.commit()
+                except:
+                    print ("Error writing to DB")
+                    db.rollback()
+                print ("DB executed")
+                
     except:
         e = sys.exc_info()[0]
         print ( "Error: %s" % traceback.format_exc() )

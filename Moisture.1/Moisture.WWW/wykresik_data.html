@@ -3,6 +3,9 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Wykresik</title>
+	<!--
+	<script src="http://192.168.0.26:8000/charts/dist/Chart.js" type="text/javascript"></script>
+	-->
 	<script src="http://www.chartjs.org/assets/Chart.js" type="text/javascript"></script>
 </head>
 
@@ -21,6 +24,14 @@
 
 	<canvas id="buyers" width="800" height="400"></canvas>	
 	<br/>
+	<!--
+	Time series:
+	<br />
+	<canvas id="buyers2" width="800" height="400"></canvas>	
+	<br/>
+	-->
+
+<br/>
 	<img 
 		src="http://192.168.0.26:8000/graph/benjaminek.jpg"
 		style="width:300px"/>
@@ -29,7 +40,24 @@
 		Cezar is awesome!
 	</h6>
 	<script>
-var buyerData = {
+
+		var buyerData2 = {
+			datasets: [
+			{
+				label: 'Moisture',
+				data : {{{data2}}},
+				options: {
+					scales: {
+						xAxes: [{
+							type: 'linear',
+							position: 'bottom'
+						}]
+					}	
+				}
+			}]}
+//		var ctx = new Chart(document.getElementById("buyers2").getContext("2d")).Line(buyerData2);
+
+		var buyerData = {
 			labels: {{{labels}}},
 			datasets: [
 			{
@@ -39,12 +67,10 @@ var buyerData = {
 				pointStrokeColor : "#9DB86D",
 				data : {{{data}}}
 			}]}
-		//var buyers = document.getElementById("buyers").getContext("2d");
-		//new Chart(buyers).Line();
 		var ctx = new Chart(document.getElementById("buyers").getContext("2d")).Line(buyerData);
-	
+
 </script>
 
-	
+
 </body>
 </html>

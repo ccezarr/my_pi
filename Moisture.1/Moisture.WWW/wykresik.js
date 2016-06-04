@@ -12,6 +12,8 @@ var globalResponse;
 var app = express();
 
 app.use('/graph', express.static('graph'));
+//app.use('/charts', express.static('node_modules/chart.js/src/charts'));
+app.use('/charts', express.static('node_modules/chart.js'));
 
 connection.connect(function(err){
 if(!err) {
@@ -51,9 +53,9 @@ app.get('/kwiatek', function(req,res){
 			var dataString = '[';
 			var labelsString = '[';
 
-			for (var i=0; i<data.length; i++)
+			for (var i=data.length-1; i>=0; i--)
 			{
-				if (i>0)
+				if (i<data.length-1)
 				{
 					dataString = dataString + ",";
 					labelsString = labelsString + ",";
@@ -66,10 +68,24 @@ app.get('/kwiatek', function(req,res){
 			var labelsString = labelsString + ']';
 			//console.log(labelsString);
 
+			var dataString2 = "[";
+			for (var i=0; i< data.length; i++)
+			{
+				if (i>0) dataString2 = dataString2 + ",";
+				dataString2 = dataString2 + "{ x: " +
+					i + ", y: " +
+					data[i].moisture + "}";
+			
+			}
+			dataString2 = dataString2 + "]";
+			console.log(dataString2);
+
 			var htmlToSend = html.toString();
 			htmlToSend = htmlToSend
 				.replace('{{{labels}}}',labelsString)
-				.replace('{{{data}}}', dataString);
+				.replace('{{{data}}}', dataString)
+				.replace('{{{labels2}}}',labelsString)
+				.replace('{{{data2}}}', dataString2);
     			if (err) 
 			{
         			throw err; 
@@ -85,7 +101,7 @@ app.get('/kwiatek', function(req,res){
 
 app.get("/last100", function(req,res){
 globalResponse=res;
-connection.query('SELECT * from moisture LIMIT 100', function (err,rows,fields) {
+connection.query('SELECT * from moisture ORDER BY tdate, ttime DESC LIMIT 50', function (err,rows,fields) {
 //globalResponse.writeHeader(200, {'Content-Type': 'text/html'});  
 if (!err)
 {
