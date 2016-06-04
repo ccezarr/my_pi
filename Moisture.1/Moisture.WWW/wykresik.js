@@ -42,15 +42,32 @@ app.get('/kwiatek', function(req,res){
 	var client = new Client();
 	client.get("http://localhost:8000/last100", function (data, response) {
 		console.log('Data received through REST');
+		console.log('Read: ' + data.length.toString());
 		fs = require('fs');	
 		fs.readFile('wykresik_data.html', 'utf-8',  function (err, html) 
 		{
+			var dataString = '[';
+			var labelsString = '[';
+
+			for (var i=0; i<data.length; i++)
+			{
+				if (i>0)
+				{
+					dataString = dataString + ",";
+					labelsString = labelsString + ",";
+				}
+				labelsString = labelsString + '\"' + data[i].ttime.toString() + '\"';
+				dataString = dataString + '\"' + data[i].moisture.toString() + '\"';
+			}
+			var dataString = dataString + ']';
+			console.log(dataString);	
+			var labelsString = labelsString + ']';
+			console.log(labelsString);
+
 			var htmlToSend = html.toString();
-			htmlToSend = htmlToSend.replace(
-				'{{{labels}}}',
-				'[1,2]').replace(
-				'{{{data}}}',
-				'[3,5]');
+			htmlToSend = htmlToSend
+				.replace('{{{labels}}}',labelsString)
+				.replace('{{{data}}}', dataString);
     			if (err) 
 			{
         			throw err; 
