@@ -78,7 +78,7 @@ app.get('/kwiatek', function(req,res){
 			
 			}
 			dataString2 = dataString2 + "]";
-			console.log(dataString2);
+			//console.log(dataString2);
 
 			var htmlToSend = html.toString();
 			htmlToSend = htmlToSend
@@ -101,7 +101,7 @@ app.get('/kwiatek', function(req,res){
 
 app.get("/last100", function(req,res){
 globalResponse=res;
-connection.query('SELECT * from moisture ORDER BY tdate, ttime DESC LIMIT 50', function (err,rows,fields) {
+connection.query('SELECT * from moisture ORDER BY tdate DESC, ttime DESC LIMIT 250', function (err,rows,fields) {
 //globalResponse.writeHeader(200, {'Content-Type': 'text/html'});  
 if (!err)
 {
@@ -138,7 +138,7 @@ var http = require('http'),
         		response.write(html);
 			console.log(err);
 			console.log ('file loaded.');
-			console.log(html.toString('utf-8'));
+			//console.log(html.toString('utf-8'));
         		response.end();  
 		})
     	}).listen(8000);

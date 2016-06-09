@@ -10,9 +10,6 @@ print ("App started.")
 
 photofile = "/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload /home/pi/moisture.txt moisture.txt"
 
-db = MySQLdb.connect(host="localhost", user="monitor", passwd="password", db="pomiary")
-cur = db.cursor()
-
 while 1:
     try:
         ser = serial.Serial('/dev/ttyACM0', 9600)
@@ -37,8 +34,10 @@ while 1:
                 #call ([photofile], shell=True)
                 print ("File uploaded")
 
-            if counter > 10:
                 #DATABASE
+                db = MySQLdb.connect(host="localhost", user="monitor", passwd="password", db="pomiary")
+                cur = db.cursor()
+                
                 sqlInsert = "INSERT INTO moisture VALUES(CURRENT_DATE(), NOW()," + dataRead + ")"
                 print (sqlInsert)
                 try:
@@ -48,6 +47,8 @@ while 1:
                     print ("Error writing to DB")
                     db.rollback()
                 print ("DB executed")
+
+                db.close()
                 
     except:
         e = sys.exc_info()[0]
@@ -55,4 +56,4 @@ while 1:
         print ( "Will retry in a sec...")
         time.sleep(10)   
 
-db.close()
+
