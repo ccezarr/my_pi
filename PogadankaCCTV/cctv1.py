@@ -1,3 +1,6 @@
+# https://www.raspberrypi.org/documentation/usage/camera/python/README.md
+# https://maker.pro/education/bluetooth-basics-how-to-control-an-led-using-a-smartphone-and-arduino-1
+
 import RPi.GPIO as GPIO
 import time
 GPIO.setwarnings(False)
