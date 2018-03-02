@@ -101,7 +101,7 @@ app.get('/kwiatek', function(req,res){
 
 app.get("/last100", function(req,res){
 globalResponse=res;
-connection.query('SELECT * from moisture ORDER BY tdate DESC, ttime DESC LIMIT 250', function (err,rows,fields) {
+connection.query('SELECT * from moisture ORDER BY tdate DESC, ttime DESC LIMIT 1000', function (err,rows,fields) {
 //globalResponse.writeHeader(200, {'Content-Type': 'text/html'});  
 if (!err)
 {
